@@ -1,21 +1,24 @@
 <?php 
 
 
-$db_host = "localhost"; //can be "localhost" for local development
-$db_username = "root";
-$db_password = "";
-$db_name = "mychat";
-$conn = new mysqli($db_host,$db_username,$db_password,$db_name) or die(mysqli_error());
+
 
 $method = $_SERVER['REQUEST_METHOD'];
 
 // Process only when method is POST
 if($method == 'POST'){
+
 	$requestBody = file_get_contents('php://input');
 	$json = json_decode($requestBody);
 
 	$text = $json->result->parameters->text;
 
+
+	$db_host = "localhost"; //can be "localhost" for local development
+$db_username = "root";
+$db_password = "";
+$db_name = "mychat";
+$conn = new mysqli($db_host,$db_username,$db_password,$db_name) or die(mysqli_error());
 
 	$qry = "SELECT * FROM tblmessage WHERE msg = $text";
 
